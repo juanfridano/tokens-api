@@ -6,24 +6,24 @@ import { Token } from "./models/Token";
 dotenv.config();
 
 const {
-  DATABASE_HOST,
-  DATABASE_PORT,
-  DATABASE_USERNAME,
-  DATABASE_PASSWORD,
-  DATABASE_DATABASE,
+  DB_HOST,
+  DB_PORT,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_NAME,
   NODE_ENV,
 } = process.env;
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: DATABASE_HOST,
-  port: parseInt(DATABASE_PORT || "5432"),
-  username: DATABASE_USERNAME,
-  password: DATABASE_PASSWORD,
-  database: DATABASE_DATABASE,
+  host: DB_HOST ? DB_HOST : "localhost",
+  port: parseInt(DB_PORT),
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_NAME,
 
-  synchronize: NODE_ENV === "dev" ? false : false,
-  logging: NODE_ENV === "dev" ? false : false,
+  synchronize: NODE_ENV === "dev" ? true : false,
+  logging: NODE_ENV === "dev" ? true : false,
   entities: [Token],
   migrations: [__dirname + "/migration/*.ts"],
   subscribers: [],
