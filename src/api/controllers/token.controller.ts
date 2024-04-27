@@ -7,25 +7,25 @@ import { TokenService } from "../../services/token.service";
 
 export class TokenController {
     static async getAll(request: Request, response: Response) {
-      // TODO move to service
-
-        const tokenRepository = AppDataSource.getRepository(Token);
-        const tokens = await tokenRepository.find();
-  
-        return response.status(200).json({
-          data: tokens,
-        });
+        return response.status(200).json(TokenService.findAll)
     }
 
     static async create(request: Request, response: Response) {
         const payload = request.body;
+        console.log("Create request: ", {payload})
         const requestErrors = validateTokenCreateRequest(payload)
-        if (requestErrors.length != 0) return response.status(400).json(requestErrors)
-        const token = TokenService.create(payload)
-
-        return response.status(201).json({
-          data: token,
-        });
+      
+        if (requestErrors.length != 0) return response.status(400).json(requestErrors)        
+        
+        let token: Token
+        
+        try {
+           token = await TokenService.create(payload)  
+        } catch (error: any) {
+          return response.status(500).json(error);
+        }
+      
+        return response.status(201).json(token);
     }
 
     static async findOneById(request: Request, response: Response) {
@@ -35,8 +35,14 @@ export class TokenController {
         const tokenRepository = AppDataSource.getRepository(Token);
         const tokens = await tokenRepository.find();
   
-        return response.status(200).json({
-          data: tokens,
-        });
+        let token: Token
+        
+        try {
+           token = await TokenService.findOneById(parseInt(id))
+        } catch (error: any) {
+          return response.status(500).json(error);
+        }
+      
+        return response.status(201).json(token);
     }
 }

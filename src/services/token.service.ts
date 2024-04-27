@@ -9,7 +9,21 @@ export class TokenService {
         token.ticker = tokenDTO.ticker
         token.description = tokenDTO.description
 
-        const movieRepository = AppDataSource.getRepository(Token)
-        return await movieRepository.save(token)        
+        const tokenRepository = AppDataSource.getRepository(Token)
+        return await tokenRepository.save(token)   
+    }
+    static async findAll(tokenDTO: TokenCreateRequest) : Promise<Token[]> {
+        const tokenRepository = AppDataSource.getRepository(Token)
+        return await tokenRepository.find()
+    }
+    static async findOneById(id: number) : Promise<Token | undefined> {
+        const tokenRepository = AppDataSource.getRepository(Token)
+        const tokens = await tokenRepository.findBy({id})
+        console.log({tokens})
+        if (tokens.length === 1) {
+            return tokens[0]
+        } else {
+            return undefined
+        }
     }
 }
