@@ -24,7 +24,9 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: true,
     entities: [Token],
+    // Migration scripts
     migrations: [__dirname + "/migration/*.ts"],
     subscribers: [],
+    // on local mode no SSL needed, only on cloud
     ssl: NODE_ENV === "dev" ? false : {rejectUnauthorized: false} 
   })

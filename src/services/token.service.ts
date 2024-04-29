@@ -2,6 +2,9 @@ import { AppDataSource } from "../persistence/data-source";
 import { TokenCreateRequest } from "../api/models/token.dto";
 import { Token } from "../persistence/models/Token";
 
+/**
+ * Utility class connecting web and persistence layer
+ */
 export class TokenService {
     static async create(tokenDTO: TokenCreateRequest) : Promise<Token> {
         const token: Token = new Token()

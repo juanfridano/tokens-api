@@ -4,7 +4,9 @@ import { Token } from "../../persistence/models/Token";
 import { validateTokenCreateRequest } from "../models/token.dto";
 import { TokenService } from "../../services/token.service";
 
-
+/**
+ * Handle REST request on the Token domain.
+ */
 export class TokenController {
     static async getAll(request: Request, response: Response) {
       const tokens = await TokenService.findAll()
