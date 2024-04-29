@@ -11,20 +11,20 @@ const {
   DB_USERNAME,
   DB_PASSWORD,
   DB_NAME,
-  NODE_ENV,
+  NODE_ENV
 } = process.env;
 
 export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: DB_HOST ? DB_HOST : "localhost",
-  port: parseInt(DB_PORT),
-  username: DB_USERNAME,
-  password: DB_PASSWORD,
-  database: DB_NAME,
-
-  synchronize: NODE_ENV === "dev" ? true : false,
-  logging: NODE_ENV === "dev" ? true : false,
-  entities: [Token],
-  migrations: [__dirname + "/migration/*.ts"],
-  subscribers: [],
-});
+    type: "postgres",
+    host: DB_HOST ? DB_HOST : "localhost",
+    port: parseInt(DB_PORT),
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    synchronize: true,
+    logging: true,
+    entities: [Token],
+    migrations: [__dirname + "/migration/*.ts"],
+    subscribers: [],
+    ssl: NODE_ENV === "dev" ? false : {rejectUnauthorized: false} 
+  })

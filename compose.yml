@@ -20,7 +20,7 @@ services:
     environment:
       - DB_HOST=postgresdb
     ports:
-      - $API_PORT:$API_PORT
+      - $PORT:$PORT
     stdin_open: true
     tty: true
 

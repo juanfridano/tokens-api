@@ -8,17 +8,20 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-const { API_PORT = 3000 } = process.env;
+const { PORT } = process.env;
 app.use("/api", router);
 
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({ status: "up" });
+});
 app.get("*", (req: Request, res: Response) => {
-  res.status(400).json({ message: "Bad Request" });
+  res.status(404).json({ message: "Page not found" });
 });
 
 AppDataSource.initialize()
   .then(async () => {
-    app.listen(API_PORT, () => {
-      console.log("Server up on http://localhost:" + API_PORT);
+    app.listen(PORT, () => {
+      console.log("Server up on http://localhost:" + PORT);
     });
     console.log("Data Source up!");
   })
