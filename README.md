@@ -111,7 +111,9 @@ Returns a single token
 
 ## How to run
 ### Locally as a service
-- From the root of the project run `docker compose up` 
+- From the root of the project run `docker compose up`
+
+> you need to create a .env file in the root of the project. (renaming **.env.sample** to **.env** will work)
 
 **The api should be running on http://127.0.0.1:3000 or http://localhost:3000**
 
@@ -119,6 +121,8 @@ Returns a single token
 - From the root of the project:
   - run `docker compose up -d postgresdb` to start only the Database
   - run `npm run start-dev` to have the api running locally, compiling typescript and watching changes continiously 
+
+> you need to create a .env file in the root of the project. (renaming **.env.sample** to **.env** and completely removing the variable **DB_HOST** will work)
 
 **The api should be running on http://127.0.0.1:3000 or http://localhost:3000**
 
